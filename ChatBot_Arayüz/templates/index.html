@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fikir Kutusu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+  /* BODY tam ekran, açık gri arka plan */
+  body, html {
+    height: 100%;
+    margin: 0;
+    background: #f5f5f5; /* Açık gri */
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #222222; /* Koyu gri */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Chat konteyner tüm ekranı kaplasın */
+  .chat-container {
+    width: 100vw;
+    height: 100vh;
+    max-width: 600px; /* Çok büyük ekranlarda çok geniş olmasın */
+    background: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+
+  .chat-header {
+    background: #e0f7fa; /* Açık turkuaz */
+    padding: 20px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 1.5px;
+    border-bottom: 2px solid #26c6da; /* Turkuaz */
+    user-select: none;
+    color: #007c91; /* Daha koyu mavi */
+  }
+
+  .chat-messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #fafafa; /* Çok açık gri */
+  }
+
+  .message {
+    max-width: 75%;
+    margin-bottom: 18px;
+    padding: 14px 22px;
+    border-radius: 25px;
+    line-height: 1.5;
+    font-size: 1rem;
+    word-wrap: break-word;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .message.user {
+    background: #455a64; /* Koyu mavi-gri */
+    color: #f5f5f5; /* Açık yazı */
+    align-self: flex-end;
+    border-bottom-right-radius: 6px;
+  }
+
+  .message.bot {
+    background: #b2ebf2; /* Açık mavi-turkuaz */
+    color: #004d40; /* Koyu yeşil-mavi */
+    align-self: flex-start;
+    border-bottom-left-radius: 6px;
+  }
+
+  form {
+    display: flex;
+    border-top: 2px solid #ffb300; /* Turuncu-sarı */
+    background: white;
+    padding: 18px 20px;
+  }
+
+  input[type="text"] {
+    flex-grow: 1;
+    padding: 14px 18px;
+    border: 2px solid #ccc;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    color: #222222;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  input[type="text"]:focus {
+    border-color: #ffb300; /* Turuncu-sarı */
+  }
+
+  button {
+    margin-left: 16px;
+    background: #ffb300; /* Turuncu-sarı */
+    color: #222222;
+    border: none;
+    padding: 0 28px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 0 12px #ffb300aa;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  button:hover {
+    background-color: #ffa000;
+    box-shadow: 0 0 18px #ffa000cc;
+  }
+
+</style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">Fikir Kutusu</div>
+
+    <div class="chat-messages" id="chatMessages">
+      {% if soru %}
+      <div class="message user">{{ soru }}</div>
+      {% endif %}
+      {% if cevap %}
+      <div class="message bot">{{ cevap }}</div>
+      {% endif %}
+    </div>
+
+    <form method="POST" action="/">
+      <input type="text" name="soru" placeholder="Sorunu yaz..." autocomplete="off" required />
+      <button type="submit">Gönder</button>
+    </form>
+  </div>
+</body>
+</html>
